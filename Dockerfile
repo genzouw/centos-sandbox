@@ -6,7 +6,10 @@ RUN yum install -y epel-release \
        gcc \
        gcc-c++ \
        git \
+       golang \
        make \
+       nodejs \
+       npm \
        vim \
   && rm -rf /var/cache/yum/* \
   && yum clean all \
