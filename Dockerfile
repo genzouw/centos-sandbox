@@ -15,4 +15,9 @@ RUN yum install -y epel-release \
   && yum clean all \
 ;
 
+RUN echo -e $'\n\
+alias vi='vim'\n\
+set -o vi\n\
+' >> /root/.bashrc
+
 ENV PS1 '$ '
