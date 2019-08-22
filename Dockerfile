@@ -6,13 +6,6 @@ RUN yum install -y \
   https://rpm.nodesource.com/pub_12.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm \
 ;
 
-RUN echo -e $'\n\
-alias vi='vim'\n\
-set -o vi\n\
-' >> /root/.bashrc
-
-ENV PS1 '$ '
-
 RUN yum install -y epel-release \
   && yum install -y \
        automake \
@@ -23,6 +16,23 @@ RUN yum install -y epel-release \
        make \
        nodejs \
        vim \
-  && rm -rf /var/cache/yum/* \
   && yum clean all \
+  && rm -rf /var/cache/yum/* \
 ;
+
+RUN echo -e $'\n\
+alias vi='vim'\n\
+set -o vi\n\
+\n\
+{\n\
+  echo '----------'\n\
+  echo "\$ uname -moi"\n\
+  uname -moi\n\
+  echo\n\
+  echo "\$ bash -version | head -n 1"\n\
+  bash -version | head -n 1\n\
+  echo '----------'\n\
+}\n\
+' >> /root/.bashrc
+
+ENV PS1 '$ '
