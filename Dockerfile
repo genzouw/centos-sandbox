@@ -35,4 +35,4 @@ set -o vi\n\
 }\n\
 ' >> /root/.bashrc
 
-ENV PS1 '$ '
+ENV PS1 '\e[1;33m\n$ \e[0;37;40m'
