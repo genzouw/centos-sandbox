@@ -36,3 +36,5 @@ set -o vi\n\
 ' >> /root/.bashrc
 
 ENV PS1 '\e[1;33m\n$ \e[0;37;40m'
+
+ENTRYPOINT ["/bin/bash"]
