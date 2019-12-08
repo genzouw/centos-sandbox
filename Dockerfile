@@ -8,17 +8,50 @@ RUN yum install -y \
 
 RUN yum install -y epel-release \
   && yum install -y \
-       automake \
-       gcc \
-       gcc-c++ \
-       git \
-       golang \
-       make \
-       nodejs \
-       vim \
+    automake \
+    gcc \
+    gcc-c++ \
+    git \
+    golang \
+    lua-devel \
+    make \
+    mercurial \
+    ncurses-devel \
+    nodejs \
+    perl-ExtUtils-Embed \
+    perl-devel \
+    python-devel \
+    rpm-build \
+    w3m \
   && yum clean all \
   && rm -rf /var/cache/yum/* \
 ;
+
+RUN git clone \
+  https://github.com/vim/vim.git \
+  "/usr/local/src/vim"
+
+RUN cd /usr/local/src/vim \
+  && ./configure \
+    --with-local-dir=/usr \
+    --enable-multibyte \
+    --enable-tclinterp \
+    --disable-xsmp \
+    --disable-netbeans \
+    --disable-gtktest \
+    --disable-gpm \
+    --disable-selinux \
+    --without-gnome \
+    --enable-luainterp=yes \
+    --enable-signs -enable-python3interp=yes \
+  && make -j2 \
+  && make install \
+  && rm -rf /usr/local/src/vim \
+  ;
+
+RUN ln -s \
+  "/usr/local/bin/vim" \
+  "/usr/local/bin/vi"
 
 RUN echo -e $'\n\
 alias vi='vim'\n\
