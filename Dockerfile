@@ -15,6 +15,7 @@ RUN yum install -y epel-release \
     golang \
     lua-devel \
     make \
+    man \
     mercurial \
     ncurses-devel \
     nodejs \
@@ -23,6 +24,8 @@ RUN yum install -y epel-release \
     python-devel \
     rpm-build \
     w3m \
+  && yum reinstall --setopt=tsflags='' -y \
+    bash \
   && yum clean all \
   && rm -rf /var/cache/yum/* \
 ;
