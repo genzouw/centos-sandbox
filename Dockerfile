@@ -65,6 +65,9 @@ set -o vi\n\
   echo "\$ uname -moi"\n\
   uname -moi\n\
   echo\n\
+  echo "\$ head -n 2 /etc/os-release"\n\
+  head -n 2 /etc/os-release\n\
+  echo\n\
   echo "\$ bash -version | head -n 1"\n\
   bash -version | head -n 1\n\
   echo '----------'\n\
