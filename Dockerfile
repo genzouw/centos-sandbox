@@ -1,62 +1,31 @@
-FROM centos:centos7
+FROM ubuntu:21.10
 
 LABEL maintainer "genzouw <genzouw@gmail.com>"
 
-RUN yum install -y \
-  https://rpm.nodesource.com/pub_12.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm \
-;
-
-RUN yum install -y epel-release \
-  && yum install -y \
-    automake \
+RUN apt-get update \
+  && DEBIAN_FRONTEND=noninteractive apt-get -y install \
+    --no-install-recommends \
     gcc \
-    gcc-c++ \
     git \
     golang \
-    lua-devel \
+    libicu-dev \
+    libpq-dev \
+    locales \
+    liblua5.3-dev \
     make \
-    man \
-    mercurial \
-    ncurses-devel \
-    nodejs \
-    perl-ExtUtils-Embed \
-    perl-devel \
-    python-devel \
-    rpm-build \
+    procps \
+    python3-dev \
+    unixodbc-dev \
+    unzip \
+    vim \
     w3m \
-  && yum reinstall --setopt=tsflags='' -y \
-    bash \
-  && yum clean all \
-  && rm -rf /var/cache/yum/* \
-;
-
-RUN git clone \
-  https://github.com/vim/vim.git \
-  "/usr/local/src/vim"
-
-RUN cd /usr/local/src/vim \
-  && ./configure \
-    --with-local-dir=/usr \
-    --enable-multibyte \
-    --enable-tclinterp \
-    --disable-xsmp \
-    --disable-netbeans \
-    --disable-gtktest \
-    --disable-gpm \
-    --disable-selinux \
-    --without-gnome \
-    --enable-luainterp=yes \
-    --enable-signs -enable-python3interp=yes \
-  && make -j2 \
-  && make install \
-  && rm -rf /usr/local/src/vim \
-  ;
-
-RUN ln -s \
-  "/usr/local/bin/vim" \
-  "/usr/local/bin/vi"
+    zlib1g-dev \
+  && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 RUN echo -e $'\n\
+export PS1="\e[1;33m\n\$ \e[0;37;40m"\n\
+
 alias vi='vim'\n\
 set -o vi\n\
 \n\
@@ -73,7 +42,5 @@ set -o vi\n\
   echo '----------'\n\
 }\n\
 ' >> /root/.bashrc
-
-ENV PS1 '\e[1;33m\n$ \e[0;37;40m'
 
 ENTRYPOINT ["/bin/bash"]
