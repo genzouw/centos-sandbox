@@ -57,6 +57,7 @@ RUN ln -s \
   "/usr/local/bin/vi"
 
 RUN echo -e $'\n\
+export PS1="\n\[\e[1;33m\]\$ \[\e[m\]"\n\
 alias vi='vim'\n\
 set -o vi\n\
 \n\
@@ -73,7 +74,5 @@ set -o vi\n\
   echo '----------'\n\
 }\n\
 ' >> /root/.bashrc
-
-ENV PS1 "\n\[\e[1;33m\]\$ \[\e[m\]"
 
 ENTRYPOINT ["/bin/bash"]
